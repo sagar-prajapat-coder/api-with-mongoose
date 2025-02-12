@@ -1,0 +1,16 @@
+{
+  "name": "api-with-mongoose",
+  "version": "1.0.0",
+  "description": "first time using crud api with mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.10.0",
+    "nodemon": "^3.1.9"
+  }
+}

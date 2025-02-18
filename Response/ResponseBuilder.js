@@ -21,4 +21,4 @@ class ResponseBuilder {
   }
 }
 
-module.exports = ResponseBuilder;
+export default ResponseBuilder; 

@@ -1,11 +1,11 @@
-const express = require("express");
-require("./config");
-const userRoutes = require("./Routes/routes");
+import express from "express";
+import config from "./config.js";
+import router from "./Routes/routes.js";
 
 const app = express();
 
-app.use(express.json()); // Middleware to parse JSON
-app.use("/api", userRoutes); // Prefix API routes
 
+app.use(express.json()); 
+app.use("/api", router); 
 
 app.listen(5000);

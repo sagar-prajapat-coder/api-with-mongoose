@@ -28,3 +28,4 @@ data/db/
 # Build artifacts
 dist/
 build/
+config.js

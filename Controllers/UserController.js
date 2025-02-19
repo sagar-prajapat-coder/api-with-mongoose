@@ -6,12 +6,14 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import UserResource from "../Resources/UserResource.js";
 import Lang from "../Lang/en.js";
+import sendEmail from "../Mail/sendEmail.js";
+import sendSMS from "../Services/smsService.js";
 dotenv.config();
 
 export const AuthServices = {
   createUser: async (req, resp) => {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, phone } = req.body;
       if (!name || name.trim() === "") {
         return resp.status(400).json({ error: "Name is required" });
       }
@@ -31,8 +33,18 @@ export const AuthServices = {
         name: name,
         email: sanetizeEmail,
         password: hashedPassword,
+        phone: phone,
       });
       let result = await data.save();
+      await sendEmail(
+        email,
+        "Welcome to Our App",
+        `Hello ${name}, welcome to our platform!`
+      );
+ 
+      // Send SMS after successful registration
+      const smsMessage = `Hello ${name}, your registration was successful! Welcome to our platform.`;
+      await sendSMS(phone, smsMessage);
 
       return ResponseBuilder.successMessage(
         Lang.SUCCESS.USER_CREATED,
@@ -78,9 +90,42 @@ export const AuthServices = {
     try {
       const user = req.user;
       const formattedUser = UserResource.format(user);
-      return new ResponseBuilder(Lang.SUCCESS.PROFILE_FETCHED,200,formattedUser).build(res);
+      return new ResponseBuilder(
+        Lang.SUCCESS.PROFILE_FETCHED,
+        200,
+        formattedUser
+      ).build(res);
     } catch (error) {
       return res.status(500).json({ message: "Internal Server Error" });
     }
+  },
+
+  updateProfile: async (req, resp) => {
+    try {
+      const userId = req.user._id;
+      const { name, email, password } = req.body;
+      const profileImage = req.file ? req.file.path : null;
+
+      const user = await User.findById(userId);
+      if (!user) {
+        return new ResponseBuilder("User not found", 404).build(res);
+      }
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+      }
+      if (profileImage) user.profileImage = profileImage; 
+
+      await user.save();
+      return new ResponseBuilder(Lang.SUCCESS.PROFILE_UPDATED, 200, user).build(
+        resp
+      );
+    } catch (error)
+    {
+      return res.status(500).json({message: "Internal Server Error"});
+    }
+
   },
 };

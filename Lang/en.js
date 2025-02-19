@@ -3,6 +3,7 @@ class Lang {
     USER_CREATED: "User created successfully!",
     LOGIN_SUCCESS: "Login successful!",
     PROFILE_FETCHED: "User profile fetched successfully!",
+    PROFILE_UPDATED: "User profile updated successfully!",
     USERS_FETCHED: "Users retrieved successfully!",
     UPDATE_SUCCESS: "Updated successfully!",
     DELETE_SUCCESS: "Deleted successfully!",

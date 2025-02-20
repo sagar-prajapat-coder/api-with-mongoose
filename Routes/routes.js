@@ -14,7 +14,8 @@ router.use(authMiddleware);
 
 router.get("/profile", AuthServices.getUserProfile);
 
-router.post("/update-profile", upload, AuthServices.updateProfile);
+router.post("/update-profile", AuthServices.updateProfile);
+router.delete("/delete-user",AuthServices.deleteUser);
 
 
 export default router; 

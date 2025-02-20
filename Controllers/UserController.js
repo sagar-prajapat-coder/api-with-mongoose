@@ -128,4 +128,25 @@ export const AuthServices = {
     }
 
   },
+
+  deleteUser: async (req, resp) => {
+    try {
+      const { user_id } = req.body; // Extract user_id from request body
+  
+      if (!user_id) {
+        return resp.status(400).json({ message: "User ID is required" });
+      }
+  
+      const user = await User.findByIdAndDelete(user_id);
+      
+      if (!user) {
+        return resp.status(404).json({ message: "User not found" });
+      }
+  
+      return new ResponseBuilder(Lang.SUCCESS.DELETE_SUCCESS, 200, user).build(resp);
+    } catch (error) {
+      resp.status(500).json({ message: "Server Error", error });
+    }
+  }
+  
 };

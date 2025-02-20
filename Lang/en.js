@@ -6,7 +6,7 @@ class Lang {
     PROFILE_UPDATED: "User profile updated successfully!",
     USERS_FETCHED: "Users retrieved successfully!",
     UPDATE_SUCCESS: "Updated successfully!",
-    DELETE_SUCCESS: "Deleted successfully!",
+    DELETE_SUCCESS: "User deleted successfully!",
     LOGOUT_SUCCESS: "Logout successful!",
   };
 

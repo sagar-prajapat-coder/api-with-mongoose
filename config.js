@@ -1,6 +1,7 @@
+import 'dotenv/config';
 import mongoose from 'mongoose';
 
-const mongoURI = 'mongodb+srv://sagareoxysit:kTEtpmkApEjgnjSQ@cluster0.qin7c.mongodb.net/testnodejs';
+const mongoURI = process.env.MONGO_URI;
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,

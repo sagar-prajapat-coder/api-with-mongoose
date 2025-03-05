@@ -131,7 +131,7 @@ export const AuthServices = {
 
   deleteUser: async (req, resp) => {
     try {
-      const { user_id } = req.body; // Extract user_id from request body
+      const { user_id } = req.body;
   
       if (!user_id) {
         return resp.status(400).json({ message: "User ID is required" });
